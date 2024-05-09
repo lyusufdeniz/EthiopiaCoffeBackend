@@ -16,12 +16,17 @@ namespace EthiopiaCoffe.Infrastructure.Services
         {
             _productRepository = productRepository;
         }
-        public async Task<ResponseDTO<Guid>> AddAsync(ProductAddDTO entity) => ResponseDTO<Guid>.Succes(await _productRepository.AddAsync(_mapper.Map<Product>(entity)), HttpStatusCode.Created);
-  
+        public async Task<ResponseDTO<Guid>> AddAsync(ProductAddDTO entity)
+        {
+           
+          await  _unitOfWork.CommitAsync();
+            return ResponseDTO<Guid>.Succes(await _productRepository.AddAsync(_mapper.Map<Product>(entity)), HttpStatusCode.Created);
+        }
 
         public ResponseDTO<NoContent> Update(ProductUpdateDTO entity)
         {
             _productRepository.Update(_mapper.Map<Product>(entity));
+            _unitOfWork.Commit();
           return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
 
         }
