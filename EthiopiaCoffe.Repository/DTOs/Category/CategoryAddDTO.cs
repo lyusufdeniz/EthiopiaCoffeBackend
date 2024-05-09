@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EthiopiaCoffe.Repository.DTOs.Category
+﻿namespace EthiopiaCoffe.Repository.DTOs.Category
 {
-    public class CategoryAddDTO
+    public record CategoryAddDTO: BaseCategoryDTO
     {
-        public string Name { get; set; } = default!;
-        public string Description { get; set; } = default!;
+
     }
 }

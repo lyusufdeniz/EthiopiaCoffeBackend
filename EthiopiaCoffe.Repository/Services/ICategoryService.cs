@@ -1,7 +1,6 @@
-﻿using EthiopiaCoffe.Repository.DTOs.Category;
+﻿using EthiopiaCoffe.Domain.Concrete.Entities;
 using EthiopiaCoffe.Repository.DTOs;
-using EthiopiaCoffe.Domain.Concrete.Entities;
-using EthiopiaCoffe.Repository.DTOs.Product;
+using EthiopiaCoffe.Repository.DTOs.Category;
 
 namespace EthiopiaCoffe.Repository.Services
 {
