@@ -1,23 +1,35 @@
-﻿using EthiopiaCoffe.Domain.Concrete.Entities;
-using EthiopiaCoffe.Repository.Repositories;
+﻿using EthiopiaCoffe.Repository.DTOs;
+using EthiopiaCoffe.Repository.DTOs.Product;
+using EthiopiaCoffe.Repository.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EthiopiaCoffe.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+
+    public class ProductController : CustomBaseController
     {
-        private readonly IGenericRepository<Product> _repository;
-        public ProductController(IGenericRepository<Product> generic)
-        {
-            _repository = generic;
-        }
+        IProductService _productService;
+
+
+        public ProductController(IProductService productService) => _productService = productService;
+
 
         [HttpGet]
-      public  ActionResult Get()
-        {
-            return Ok(_repository.AllAsync());
-        }
+        public IActionResult Get() => CreateActionResult(_productService.GetAll());
+        [HttpGet("[action]")]
+        public IActionResult GetWithCategory() => CreateActionResult(_productService.ProductsWithCategory());
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get( Guid id) => CreateActionResult(await _productService.GetByIdAsync(id));
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ProductAddDTO productDTO) => CreateActionResult(await _productService.AddAsync(productDTO));
+        [HttpPut]
+        public  IActionResult Update(ProductUpdateDTO productDTO) => CreateActionResult( _productService.Update(productDTO));
+        [HttpDelete]
+        public IActionResult Delete(ProductDTO productDTO) => CreateActionResult(_productService.Delete(productDTO));
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id) => CreateActionResult(await _productService.Delete(id));
+      
+
     }
 }
