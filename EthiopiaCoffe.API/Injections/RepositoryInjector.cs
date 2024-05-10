@@ -10,7 +10,7 @@ namespace EthiopiaCoffe.API.Injections
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
             services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
-
+            services.AddScoped(typeof(IOfferRepository), typeof(OfferRepository));
             return services;
         }
     }

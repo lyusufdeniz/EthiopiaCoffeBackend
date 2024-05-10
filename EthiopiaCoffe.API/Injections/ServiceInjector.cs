@@ -15,6 +15,7 @@ namespace EthiopiaCoffe.API.Injections
             services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
             services.AddScoped(typeof(IProductService), typeof(ProductService));
             services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
+            services.AddScoped(typeof(IOfferService), typeof(OfferService));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(Assembly.GetAssembly(typeof(ProductObjectMap)));
             return services;
