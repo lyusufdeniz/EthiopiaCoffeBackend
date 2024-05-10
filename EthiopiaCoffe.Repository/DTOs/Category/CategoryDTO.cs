@@ -1,6 +1,4 @@
-﻿using EthiopiaCoffe.Repository.DTOs.Product;
-
-namespace EthiopiaCoffe.Repository.DTOs.Category
+﻿namespace EthiopiaCoffe.Repository.DTOs.Category
 {
     public record  CategoryDTO: BaseCategoryDTO
     {
