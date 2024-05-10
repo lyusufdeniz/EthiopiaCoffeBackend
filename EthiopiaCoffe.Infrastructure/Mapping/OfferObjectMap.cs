@@ -9,6 +9,9 @@ namespace EthiopiaCoffe.Infrastructure.Mapping
         public OfferObjectMap()
         {
             CreateMap<Offer, OfferDTO>().ReverseMap();
+            CreateMap<Offer, OfferAddDTO>().ReverseMap();
+            CreateMap<Offer, OfferUpdateDTO>().ReverseMap();
+            CreateMap<Offer, OfferWithCategoryDTO>().ReverseMap();
         }
     }
 }
