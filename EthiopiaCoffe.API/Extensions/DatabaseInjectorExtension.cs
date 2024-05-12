@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace EthiopiaCoffe.API.Injections
+namespace EthiopiaCoffe.API.Extensions
 {
     public static class DatabaseInjectorExtension
     {
-    
-        public static IServiceCollection InjectEFCoreForSqlServer(this IServiceCollection services,   IConfiguration configuration )
+
+        public static IServiceCollection InjectEFCoreForSqlServer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(x =>
             {

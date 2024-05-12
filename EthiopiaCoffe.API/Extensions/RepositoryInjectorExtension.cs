@@ -1,7 +1,7 @@
 ﻿using EthiopiaCoffe.Persistence.Repositories;
 using EthiopiaCoffe.Repository.Repositories;
 
-namespace EthiopiaCoffe.API.Injections
+namespace EthiopiaCoffe.API.Extensions
 {
     public static class RepositoryInjectorExtension
     {

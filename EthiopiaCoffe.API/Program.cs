@@ -1,4 +1,4 @@
-using EthiopiaCoffe.API.Injections;
+using EthiopiaCoffe.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

@@ -5,14 +5,14 @@ using EthiopiaCoffe.Repository.Services;
 using EthiopiaCoffe.Repository.UnitOfWorks;
 using System.Reflection;
 
-namespace EthiopiaCoffe.API.Injections
+namespace EthiopiaCoffe.API.Extensions
 {
-    public static class ServiceInjectorExtension 
+    public static class ServiceInjectorExtension
     {
         public static IServiceCollection InjectServices(this IServiceCollection services)
         {
-            
-         
+
+
             //services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
             services.AddScoped(typeof(IProductService), typeof(ProductService));
             services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
