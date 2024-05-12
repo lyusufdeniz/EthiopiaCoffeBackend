@@ -7,7 +7,7 @@
         public string Description { get; init; } = default!;
         public string Image { get; init; } = default!;
         public Guid CategoryId { get;init; }
-        public DateOnly CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
     }
 }

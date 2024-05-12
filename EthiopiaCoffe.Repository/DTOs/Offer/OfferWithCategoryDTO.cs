@@ -8,7 +8,7 @@ namespace EthiopiaCoffe.Repository.DTOs.Offer
         public string Name { get; init; } = default!;
         public string Description { get; init; } = default!;
         public string Image { get; init; } = default!;
-        public DateOnly CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public CategoryDTO Category { get; init; } = default!;
     }
 }
