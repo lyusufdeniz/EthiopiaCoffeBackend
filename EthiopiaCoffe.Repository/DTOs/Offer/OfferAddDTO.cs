@@ -1,7 +1,10 @@
 ﻿namespace EthiopiaCoffe.Repository.DTOs.Offer
 {
-    public record OfferAddDTO:BaseOfferDTO
+    public record OfferAddDTO
     {
+        public string Name { get; init; } = default!;
+        public string Description { get; init; } = default!;
+        public string Image { get; init; } = default!;
 
     }
 }

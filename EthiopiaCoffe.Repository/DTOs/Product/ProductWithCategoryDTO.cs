@@ -2,9 +2,12 @@
 
 namespace EthiopiaCoffe.Repository.DTOs.Product
 {
-    public record ProductWithCategoryDTO: ProductDTO
+    public record ProductWithCategoryDTO
     {
-
+        public Guid Id { get; init; }
+        public string Name { get; init; } = default!;
+        public string Description { get; init; } = default!;
+        public string Image { get; init; } = default!;
         public CategoryDTO Category { get; set; } = default!;
     }
 }
