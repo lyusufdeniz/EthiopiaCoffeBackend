@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EthiopiaCoffe.Domain.Concrete.Entities;
+using EthiopiaCoffe.Persistence;
 using EthiopiaCoffe.Repository.DTOs;
 using EthiopiaCoffe.Repository.DTOs.Offer;
 using EthiopiaCoffe.Repository.Repositories;
@@ -16,7 +17,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
             var entity = await _offerRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
+              return  ResponseDTO<OfferDTO>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
             }
             var mapped = _mapper.Map<OfferDTO>(entity);
             return ResponseDTO<OfferDTO>.Succes(mapped, HttpStatusCode.OK);
@@ -39,20 +40,20 @@ namespace EthiopiaCoffe.Infrastructure.Services
         {
             if (_offerRepository.GetByIdAsync(entity.Id) is null)
             {
-                ResponseDTO<NoContent>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
+             return   ResponseDTO<NoContent>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
             }
 
             await _offerRepository.Delete(_mapper.Map<Offer>(entity));
             await _unitOfWork.CommitAsync();
             return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
         }
-
+        
         public async Task<ResponseDTO<NoContent>> DeleteAsync(Guid id)
         {
             var entity = _offerRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
+             return   ResponseDTO<NoContent>.Fail($"Offer Not Found", HttpStatusCode.NotFound);
             }
 
             await _offerRepository.Delete(_mapper.Map<Offer>(entity));

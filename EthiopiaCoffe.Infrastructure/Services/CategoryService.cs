@@ -17,7 +17,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
             var entity = await _categoryRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+               return ResponseDTO<CategoryDTO>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }
             var mapped = _mapper.Map<CategoryDTO>(entity);
             return ResponseDTO<CategoryDTO>.Succes(mapped, HttpStatusCode.OK);
@@ -45,7 +45,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
         {
             if (_categoryRepository.GetByIdAsync(entity.Id) is null)
             {
-                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+              return ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }
 
             await _categoryRepository.Delete(_mapper.Map<Category>(entity));
@@ -58,7 +58,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
             var entity = _categoryRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+             return   ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }
 
             await _categoryRepository.Delete(_mapper.Map<Category>(entity));

@@ -30,7 +30,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
         {
             if (_productRepository.GetByIdAsync(entity.Id) is null)
             {
-                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+              return  ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
             }
 
             await _productRepository.Delete(_mapper.Map<Product>(entity));
@@ -43,7 +43,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
             var entity = _productRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+              return  ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
             }
 
             await _productRepository.Delete(_mapper.Map<Product>(entity));
@@ -56,7 +56,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
             var entity = await _productRepository.GetByIdAsync(id);
             if (entity is null)
             {
-                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+              return  ResponseDTO<ProductDTO>.Fail($"Product Not Found", HttpStatusCode.NotFound);
             }
             var mapped = _mapper.Map<ProductDTO>(entity);
             return ResponseDTO<ProductDTO>.Succes(mapped, HttpStatusCode.OK);
@@ -72,7 +72,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
         {
             if (_productRepository.GetByIdAsync(entity.Id) is null)
             {
-                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+              return  ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }
             var mapped = _mapper.Map<Product>(entity);
             await _productRepository.Update(mapped);
