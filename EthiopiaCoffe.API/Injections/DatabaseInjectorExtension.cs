@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace EthiopiaCoffe.API.Injections
 {
-    public static class DatabaseInjector
+    public static class DatabaseInjectorExtension
     {
     
         public static IServiceCollection InjectEFCoreForSqlServer(this IServiceCollection services,   IConfiguration configuration )

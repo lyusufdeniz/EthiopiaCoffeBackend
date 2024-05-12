@@ -7,12 +7,13 @@ using System.Reflection;
 
 namespace EthiopiaCoffe.API.Injections
 {
-    public static class ServiceInjector 
+    public static class ServiceInjectorExtension 
     {
         public static IServiceCollection InjectServices(this IServiceCollection services)
         {
+            
          
-            services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+            //services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
             services.AddScoped(typeof(IProductService), typeof(ProductService));
             services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
             services.AddScoped(typeof(IOfferService), typeof(OfferService));

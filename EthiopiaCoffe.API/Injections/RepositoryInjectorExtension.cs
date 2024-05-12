@@ -3,7 +3,7 @@ using EthiopiaCoffe.Repository.Repositories;
 
 namespace EthiopiaCoffe.API.Injections
 {
-    public static class RepositoryInjector
+    public static class RepositoryInjectorExtension
     {
         public static IServiceCollection InjectRepositories(this IServiceCollection services)
         {
