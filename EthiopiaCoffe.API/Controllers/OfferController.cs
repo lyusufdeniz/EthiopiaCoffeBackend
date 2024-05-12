@@ -5,27 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 namespace EthiopiaCoffe.API.Controllers
 {
 
-    public class OfferController : CustomBaseController
+    public class OfferController(IOfferService _offerService) : CustomBaseController
     {
-        IOfferService _offerService;
-
-
-        public OfferController(IOfferService offerService) => _offerService = offerService;
 
 
         [HttpGet]
-        public IActionResult Get() => CreateActionResult(_offerService.GetAll());
+        public async Task<IActionResult> Get() => CreateActionResult(await _offerService.AllAsync());
+
         [HttpGet("[action]")]
-        public IActionResult OffersWithCategory() => CreateActionResult(_offerService.OffersWithCategory());
+        public async Task<IActionResult> GetWithCategory() => CreateActionResult(await _offerService.OffersWithCategory());
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id) => CreateActionResult(await _offerService.GetByIdAsync(id));
+        public async Task<IActionResult> Get(Guid id) => CreateActionResult(await _offerService.GetById(id));
+
         [HttpPost]
-        public async Task<IActionResult> Add(OfferAddDTO entity) => CreateActionResult(await _offerService.AddAsync(entity));
+        public async Task<IActionResult> Add(OfferAddDTO offerDTO) => CreateActionResult(await _offerService.AddAsync(offerDTO));
         [HttpPut]
-        public IActionResult Update(OfferUpdateDTO entity) => CreateActionResult(_offerService.Update(entity));
+        public async Task<IActionResult> Update(OfferUpdateDTO offerDTO) => CreateActionResult(await _offerService.UpdateAsync(offerDTO));
         [HttpDelete]
-        public IActionResult Delete(OfferDTO entity) => CreateActionResult(_offerService.Delete(entity));
+        public async Task<IActionResult> Delete(OfferDTO offerDTO) => CreateActionResult(await _offerService.DeleteAsync(offerDTO));
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id) => CreateActionResult(await _offerService.Delete(id));
+        public async Task<IActionResult> Delete(Guid id) => CreateActionResult(await _offerService.DeleteAsync(id));
     }
 }

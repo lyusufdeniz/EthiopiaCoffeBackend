@@ -1,37 +1,36 @@
 ﻿using EthiopiaCoffe.Repository.DTOs.Category;
-using EthiopiaCoffe.Repository.DTOs.Product;
 using EthiopiaCoffe.Repository.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EthiopiaCoffe.API.Controllers
 {
 
-    public class CategoryController : CustomBaseController
+    public class CategoryController(ICategoryService categoryService) : CustomBaseController
     {
-        ICategoryService _categoryService;
+        
 
 
-        public CategoryController(ICategoryService categoryService) => _categoryService = categoryService;
+        //public CategoryController(ICategoryService categoryService) => _categoryService = categoryService;
 
 
         [HttpGet]
-        public IActionResult Get() => CreateActionResult(_categoryService.GetAll());
+        public async Task<IActionResult> Get() => CreateActionResult(await categoryService.AllAsync());
+
         [HttpGet("[action]")]
-        public IActionResult CategoryWithProducts() => CreateActionResult(_categoryService.CategoryWithProducts());
+        public async Task<IActionResult> CategoryWithProducts() => CreateActionResult(await categoryService.CategoryWithProductsAsync());
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id) => CreateActionResult(await _categoryService.GetByIdAsync(id));
+        public async Task<IActionResult> Get(Guid id) => CreateActionResult(await categoryService.GetById(id));
 
         [HttpPost]
-        public async Task<IActionResult> Add(CategoryAddDTO entity)=> CreateActionResult(await _categoryService.AddAsync(entity));
-     
+        public async Task<IActionResult> Add(CategoryAddDTO entity)=> CreateActionResult(await categoryService.AddAsync(entity));
 
         [HttpPut]
-        public IActionResult Update(CategoryUpdateDTO entity) => CreateActionResult(_categoryService.Update(entity));
+        public async Task<IActionResult> Update(CategoryUpdateDTO entity) => CreateActionResult(await categoryService.UpdateAsync(entity));
         [HttpDelete]
-        public IActionResult Delete(CategoryDTO entity) => CreateActionResult(_categoryService.Delete(entity));
+        public async Task<IActionResult> Delete(CategoryDTO entity) => CreateActionResult(await categoryService.DeleteAsync(entity));
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id) => CreateActionResult(await _categoryService.Delete(id));
+        public async Task<IActionResult> Delete(Guid id) => CreateActionResult(await categoryService.DeleteAsync(id));
 
     }
 }
