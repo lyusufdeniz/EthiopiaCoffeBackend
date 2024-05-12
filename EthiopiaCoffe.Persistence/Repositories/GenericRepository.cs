@@ -1,7 +1,6 @@
 ﻿using EthiopiaCoffe.Domain.Abstract.Entities;
 using EthiopiaCoffe.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace EthiopiaCoffe.Persistence.Repositories
@@ -17,14 +16,41 @@ namespace EthiopiaCoffe.Persistence.Repositories
             _dbSet = _context.Set<T>();
         }
         public async Task<Guid> AddAsync(T entity)=> (await _dbSet.AddAsync(entity)).Entity.Id;
-    
-      
+
+
         // bunu nasıl async task yaparız?
-        public IQueryable<T> All() => _dbSet.AsQueryable();
-        public void Delete(T entity) => _dbSet.Remove(entity);
-        public Task<T> GetByIdAsync(Guid id) => _dbSet.FirstOrDefaultAsync(x => x.Id == id)!;
-        public void Update(T entity) => _dbSet.Update(entity);
-        public IQueryable<T> Where(Expression<Func<T, bool>> expression)=> _dbSet.Where(expression);
-   
+        public async Task<IReadOnlyList<T>> All()
+        {
+            return await _dbSet.ToListAsync();
+        }
+        public async Task<IReadOnlyList<T>> All(Expression<Func<T, bool>> expression)
+        {
+            return await _dbSet.Where(expression).ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<T>> AllPaged(int page, int pageSize)
+        {
+            var query= await _dbSet.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            return query;
+        }
+
+        public Task Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+            return Task.CompletedTask;
+        }
+
+        public async Task<T> GetByIdAsync(Guid id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public Task Update(T entity)
+        {
+           _dbSet.Update(entity);
+            return Task.CompletedTask;
+        }
+
+
     }
 }

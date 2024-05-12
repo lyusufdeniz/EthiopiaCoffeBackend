@@ -4,6 +4,6 @@ namespace EthiopiaCoffe.Repository.Repositories
 {
     public interface IOfferRepository:IGenericRepository<Offer>
     {
-        IQueryable<Offer> OffersWithCategory();
+        Task<IReadOnlyList<Offer>> OffersWithCategory();
     }
 }

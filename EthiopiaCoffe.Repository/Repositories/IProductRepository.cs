@@ -5,7 +5,7 @@ namespace EthiopiaCoffe.Repository.Repositories
     public interface IProductRepository : IGenericRepository<Product>
     {
 
-        IQueryable<Product> ProductsWithCategory();
+        Task<IReadOnlyList<Product>> ProductsWithCategory();
 
     }
 }

@@ -1,11 +1,6 @@
 ﻿using EthiopiaCoffe.Domain.Concrete.Entities;
 using EthiopiaCoffe.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EthiopiaCoffe.Persistence.Repositories
 {
@@ -15,7 +10,10 @@ namespace EthiopiaCoffe.Persistence.Repositories
         {
         }
 
-        public IQueryable<Category> CategoryWithProducts() => _context.Categories.Include(c => c.Products); 
-
+        public async Task<IReadOnlyList<Category>> CategoryWithProducts()
+        {
+            var data = await _context.Categories.Include(c => c.Products).ToListAsync();
+            return data.AsReadOnly();
+        }
     }
 }

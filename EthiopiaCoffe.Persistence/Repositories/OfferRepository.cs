@@ -11,9 +11,9 @@ namespace EthiopiaCoffe.Persistence.Repositories
 
         }
 
-        public IQueryable<Offer> OffersWithCategory()
+      public async  Task<IReadOnlyList<Offer>> OffersWithCategory()
         {
-            return _context.Offers.Include(o => o.Category); 
+            return (await _context.Offers.Include(o => o.Category).ToListAsync()).AsReadOnly(); 
         }
     }
 }

@@ -7,12 +7,14 @@ namespace EthiopiaCoffe.Repository.Repositories
     {
 
 
-        IQueryable<T> All();
+        Task<IReadOnlyList<T>> All();
+        Task<IReadOnlyList<T>> All(Expression<Func<T, bool>> expression);
+        Task<IReadOnlyList<T>> AllPaged(int page,int pageSize);
         Task<Guid> AddAsync(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        Task Update(T entity);
+        Task Delete(T entity);
         Task<T> GetByIdAsync(Guid id);
-        IQueryable<T> Where(Expression<Func<T,bool>> expression);
+      
 
 
 
