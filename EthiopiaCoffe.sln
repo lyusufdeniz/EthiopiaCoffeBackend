@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{37B4F4BF-9EFB-4FE8-BA44-331A3CCE31D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthiopiaCoffe.Domain", "EthiopiaCoffe.Domain\EthiopiaCoffe.Domain.csproj", "{D8F952A6-EBB5-449C-98CD-E1AB2480C233}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthiopiaCoffe.Domain", "EthiopiaCoffe.Domain\EthiopiaCoffe.Domain.csproj", "{D8F952A6-EBB5-449C-98CD-E1AB2480C233}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthiopiaCoffe.Repository", "EthiopiaCoffe.Repository\EthiopiaCoffe.Repository.csproj", "{EBDED29E-613D-4197-81A2-46F8CD4C7733}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthiopiaCoffe.Repository", "EthiopiaCoffe.Repository\EthiopiaCoffe.Repository.csproj", "{EBDED29E-613D-4197-81A2-46F8CD4C7733}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthiopiaCoffe.Persistence", "EthiopiaCoffe.Persistence\EthiopiaCoffe.Persistence.csproj", "{1A8124F4-08B8-48A2-A6E4-11EE7E6A0B7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthiopiaCoffe.Persistence", "EthiopiaCoffe.Persistence\EthiopiaCoffe.Persistence.csproj", "{1A8124F4-08B8-48A2-A6E4-11EE7E6A0B7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthiopiaCoffe.Infrastructure", "EthiopiaCoffe.Infrastructure\EthiopiaCoffe.Infrastructure.csproj", "{80E98232-9E59-44DD-A927-2CC468918E68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthiopiaCoffe.Infrastructure", "EthiopiaCoffe.Infrastructure\EthiopiaCoffe.Infrastructure.csproj", "{80E98232-9E59-44DD-A927-2CC468918E68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EthiopiaCoffe.API", "EthiopiaCoffe.API\EthiopiaCoffe.API.csproj", "{FA5D25A9-B75B-4134-872D-38CE24D537B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthiopiaCoffe.API", "EthiopiaCoffe.API\EthiopiaCoffe.API.csproj", "{FA5D25A9-B75B-4134-872D-38CE24D537B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,7 +51,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D8F952A6-EBB5-449C-98CD-E1AB2480C233} = {5DEC5D55-3A86-4087-B9AF-B368BEAD07A9}
-		{EBDED29E-613D-4197-81A2-46F8CD4C7733} = {53CE1C67-E456-43F1-A7A9-E404BFE6A577}
+		{EBDED29E-613D-4197-81A2-46F8CD4C7733} = {5DEC5D55-3A86-4087-B9AF-B368BEAD07A9}
 		{1A8124F4-08B8-48A2-A6E4-11EE7E6A0B7B} = {53CE1C67-E456-43F1-A7A9-E404BFE6A577}
 		{80E98232-9E59-44DD-A927-2CC468918E68} = {53CE1C67-E456-43F1-A7A9-E404BFE6A577}
 		{FA5D25A9-B75B-4134-872D-38CE24D537B3} = {37B4F4BF-9EFB-4FE8-BA44-331A3CCE31D4}

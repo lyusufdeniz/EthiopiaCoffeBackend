@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EthiopiaCoffe.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240512093342_init")]
+    [Migration("20240507211822_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,8 +31,8 @@ namespace EthiopiaCoffe.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CreateDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -59,8 +59,8 @@ namespace EthiopiaCoffe.Persistence.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CreateDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -93,8 +93,8 @@ namespace EthiopiaCoffe.Persistence.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CreateDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
