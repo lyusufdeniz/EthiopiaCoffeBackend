@@ -1,13 +1,18 @@
-﻿using EthiopiaCoffe.Domain.Concrete.Entities;
-using EthiopiaCoffe.Repository.DTOs;
+﻿using EthiopiaCoffe.Repository.DTOs;
 using EthiopiaCoffe.Repository.DTOs.Product;
 
 namespace EthiopiaCoffe.Repository.Services
 {
-    public interface IProductService : IGenericService<Product, ProductDTO> 
+    public interface IProductService 
     {
-        ResponseDTO<List<ProductWithCategoryDTO>> ProductsWithCategory();
+        Task<ResponseDTO<ProductDTO>> GetById(Guid id);
+        Task<ResponseDTO<List<ProductDTO>>> AllAsync();
         Task<ResponseDTO<Guid>> AddAsync(ProductAddDTO entity);
-        ResponseDTO<NoContent> Update(ProductUpdateDTO entity);
+        Task<ResponseDTO<NoContent>> UpdateAsync(ProductUpdateDTO entity);
+        Task<ResponseDTO<NoContent>> DeleteAsync(ProductDTO entity);
+        Task<ResponseDTO<NoContent>> DeleteAsync(Guid id);
+        Task<ResponseDTO<List<ProductWithCategoryDTO>>> ProductsWithCategory();
+      
+
     }
 }

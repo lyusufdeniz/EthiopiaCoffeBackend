@@ -9,31 +9,73 @@ using System.Net;
 
 namespace EthiopiaCoffe.Infrastructure.Services
 {
-    public class CategoryService : GenericService<Category, CategoryDTO>, ICategoryService
+    public class CategoryService(ICategoryRepository _categoryRepository, IUnitOfWork _unitOfWork, IMapper _mapper) : ICategoryService
     {
-        ICategoryRepository _categoryRepository;
-        public CategoryService(IMapper mapper, IGenericRepository<Category> genericRepository, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository) : base(mapper, genericRepository, unitOfWork)
+
+        public async Task<ResponseDTO<CategoryDTO>> GetById(Guid id)
         {
-            _categoryRepository = categoryRepository;
-        }
-
-
-        public ResponseDTO<List<CategoryWithProductsDTO>> CategoryWithProducts()
-            => ResponseDTO<List<CategoryWithProductsDTO>>.Succes(_mapper.Map<List<CategoryWithProductsDTO>>(_categoryRepository.CategoryWithProducts()));
-
-
-        public ResponseDTO<NoContent> Update(CategoryUpdateDTO entity)
-        {
-            _categoryRepository.Update(_mapper.Map<Category>(entity));
-            _unitOfWork.Commit();
-            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
-
+            var entity = await _categoryRepository.GetByIdAsync(id);
+            if (entity is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+            }
+            var mapped = _mapper.Map<CategoryDTO>(entity);
+            return ResponseDTO<CategoryDTO>.Succes(mapped, HttpStatusCode.OK);
         }
         public async Task<ResponseDTO<Guid>> AddAsync(CategoryAddDTO entity)
         {
             var id = await _categoryRepository.AddAsync(_mapper.Map<Category>(entity));
             await _unitOfWork.CommitAsync();
-            return ResponseDTO<Guid>.Succes(id,HttpStatusCode.Created);
+            return ResponseDTO<Guid>.Succes(id, HttpStatusCode.Created);
         }
+
+        public async Task<ResponseDTO<List<CategoryDTO>>> AllAsync()
+        {
+            var mapped = _mapper.Map<List<CategoryDTO>>(await _categoryRepository.All());
+            return ResponseDTO<List<CategoryDTO>>.Succes(mapped, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<List<CategoryWithProductsDTO>>> CategoryWithProductsAsync()
+        {
+            var mapped = _mapper.Map<List<CategoryWithProductsDTO>>(await _categoryRepository.CategoryWithProducts());
+            return ResponseDTO<List<CategoryWithProductsDTO>>.Succes(mapped, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(CategoryDTO entity)
+        {
+            if (_categoryRepository.GetByIdAsync(entity.Id) is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+            }
+
+            await _categoryRepository.Delete(_mapper.Map<Category>(entity));
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
+        }
+
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(Guid id)
+        {
+            var entity = _categoryRepository.GetByIdAsync(id);
+            if (entity is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+            }
+
+            await _categoryRepository.Delete(_mapper.Map<Category>(entity));
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
+        }
+
+
+        public async Task<ResponseDTO<NoContent>> UpdateAsync(CategoryUpdateDTO entity)
+        {
+            var mapped = _mapper.Map<Category>(entity);
+            await _categoryRepository.Update(mapped);
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
+        }
+
+
+
     }
 }

@@ -9,31 +9,75 @@ using System.Net;
 
 namespace EthiopiaCoffe.Infrastructure.Services
 {
-    public class ProductService : GenericService<Product,ProductDTO>, IProductService
+    public class ProductService(IProductRepository _productRepository, IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
+
     {
-        IProductRepository _productRepository;
-        public ProductService(IMapper mapper, IGenericRepository<Product> genericRepository, IUnitOfWork unitOfWork, IProductRepository productRepository) : base(mapper, genericRepository, unitOfWork)
-        {
-            _productRepository = productRepository;
-        }
+
         public async Task<ResponseDTO<Guid>> AddAsync(ProductAddDTO entity)
         {
             var id = await _productRepository.AddAsync(_mapper.Map<Product>(entity));
-          await  _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync();
             return ResponseDTO<Guid>.Succes(id, HttpStatusCode.Created);
         }
 
-        public ResponseDTO<NoContent> Update(ProductUpdateDTO entity)
+        public async Task<ResponseDTO<List<ProductDTO>>> AllAsync()
         {
-            _productRepository.Update(_mapper.Map<Product>(entity));
-            _unitOfWork.Commit();
-          return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
-
+            var mapped = _mapper.Map<List<ProductDTO>>(await _productRepository.All());
+            return ResponseDTO<List<ProductDTO>>.Succes(mapped, HttpStatusCode.OK);
         }
-        public ResponseDTO<List<ProductWithCategoryDTO>> ProductsWithCategory()
+
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(ProductDTO entity)
         {
-            var mapped = _mapper.Map<List<ProductWithCategoryDTO>>(_productRepository.ProductsWithCategory());
-            return ResponseDTO<List<ProductWithCategoryDTO>>.Succes(mapped);
+            if (_productRepository.GetByIdAsync(entity.Id) is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+            }
+
+            await _productRepository.Delete(_mapper.Map<Product>(entity));
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
+        }
+
+        public async Task<ResponseDTO<NoContent>> DeleteAsync(Guid id)
+        {
+            var entity = _productRepository.GetByIdAsync(id);
+            if (entity is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+            }
+
+            await _productRepository.Delete(_mapper.Map<Product>(entity));
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
+        }
+
+        public async Task<ResponseDTO<ProductDTO>> GetById(Guid id)
+        {
+            var entity = await _productRepository.GetByIdAsync(id);
+            if (entity is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
+            }
+            var mapped = _mapper.Map<ProductDTO>(entity);
+            return ResponseDTO<ProductDTO>.Succes(mapped, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<List<ProductWithCategoryDTO>>> ProductsWithCategory()
+        {
+            var mapped = _mapper.Map<List<ProductWithCategoryDTO>>(await _productRepository.ProductsWithCategory());
+            return ResponseDTO<List<ProductWithCategoryDTO>>.Succes(mapped, HttpStatusCode.OK);
+        }
+
+        public async Task<ResponseDTO<NoContent>> UpdateAsync(ProductUpdateDTO entity)
+        {
+            if (_productRepository.GetByIdAsync(entity.Id) is null)
+            {
+                ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+            }
+            var mapped = _mapper.Map<Product>(entity);
+            await _productRepository.Update(mapped);
+            await _unitOfWork.CommitAsync();
+            return ResponseDTO<NoContent>.Succes(HttpStatusCode.NoContent);
         }
     }
 }
