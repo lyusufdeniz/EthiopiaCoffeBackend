@@ -3,6 +3,7 @@ using EthiopiaCoffe.Domain.Concrete.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace EthiopiaCoffe.Persistence
 {
@@ -16,6 +17,8 @@ namespace EthiopiaCoffe.Persistence
         public DbSet<Category> Categories { get; set; }
         public DbSet<Offer> Offers { get; set; }
 
+
+        //insert createddate to saved entity
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             SetDate();
@@ -40,5 +43,14 @@ namespace EthiopiaCoffe.Persistence
                 }
             }
         }
+
+        //apply entity configurations
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
+        }
+
+
     }
 }
