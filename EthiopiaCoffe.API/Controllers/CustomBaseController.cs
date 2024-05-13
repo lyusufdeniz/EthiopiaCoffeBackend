@@ -1,4 +1,5 @@
-﻿using EthiopiaCoffe.Repository.DTOs;
+﻿using EthiopiaCoffe.API.Filters;
+using EthiopiaCoffe.Repository.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -6,6 +7,7 @@ namespace EthiopiaCoffe.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ValidationFilter]
     public class CustomBaseController : ControllerBase
     {
 
