@@ -32,20 +32,62 @@ namespace EthiopiaCoffe.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2c728509-57b5-4c66-ae3f-7f088d902e14"),
+                            CreateDate = new DateTime(2024, 5, 13, 18, 39, 4, 323, DateTimeKind.Local).AddTicks(6551),
+                            Description = "Serinletici içeceklerle yazın sıcağında keyifli anlar yaşayın!",
+                            IsDeleted = false,
+                            Name = "Soğuk İçecekler"
+                        },
+                        new
+                        {
+                            Id = new Guid("dd316510-d189-4463-ae25-a73256d3da49"),
+                            CreateDate = new DateTime(2024, 5, 13, 18, 39, 4, 323, DateTimeKind.Local).AddTicks(6568),
+                            Description = "Kahve tutkunları için enfes sıcak içecekler! ",
+                            IsDeleted = false,
+                            Name = "Sıcak İçecekler"
+                        },
+                        new
+                        {
+                            Id = new Guid("0e37f945-1e8b-4bdd-a47d-ebe651fc788a"),
+                            CreateDate = new DateTime(2024, 5, 13, 18, 39, 4, 323, DateTimeKind.Local).AddTicks(6583),
+                            Description = "Kekler, kurabiyeler, muffinler, sandviçler ve daha fazlası",
+                            IsDeleted = false,
+                            Name = "Tatlılar ve Atıştırmalıklar"
+                        },
+                        new
+                        {
+                            Id = new Guid("d76f24b0-f0e2-4a56-8386-0b7f8939e5f9"),
+                            CreateDate = new DateTime(2024, 5, 13, 18, 39, 4, 323, DateTimeKind.Local).AddTicks(6584),
+                            Description = "Çeşitli kahve çekirdekleri özel karışımlar",
+                            IsDeleted = false,
+                            Name = "Kahve Çekirdekleri ve Çeşniler"
+                        },
+                        new
+                        {
+                            Id = new Guid("9db55c49-7b5a-436d-b99b-50b986e5af4a"),
+                            CreateDate = new DateTime(2024, 5, 13, 18, 39, 4, 323, DateTimeKind.Local).AddTicks(6659),
+                            Description = "Mevsimlik özel içecekler, meyve suları, smoothie'ler, spesiyal tarifler",
+                            IsDeleted = false,
+                            Name = "Özel İçecekler"
+                        });
                 });
 
             modelBuilder.Entity("EthiopiaCoffe.Domain.Concrete.Entities.Offer", b =>
@@ -96,8 +138,8 @@ namespace EthiopiaCoffe.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -108,8 +150,8 @@ namespace EthiopiaCoffe.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 

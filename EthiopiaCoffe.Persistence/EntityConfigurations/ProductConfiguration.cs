@@ -11,9 +11,9 @@ namespace EthiopiaCoffe.Persistence.EntityConfigurations
             builder.HasKey(product => product.Id);
             builder.Property(product => product.Id).ValueGeneratedNever();
             builder.Property(product => product.Name).IsRequired();
-            builder.Property(product => product.Name).HasMaxLength(15);
+            builder.Property(product => product.Name).HasMaxLength(30);
             builder.Property(product => product.Description).IsRequired();
-            builder.Property(product => product.Description).HasMaxLength(50);
+            builder.Property(product => product.Description).HasMaxLength(80);
         }
     }
 }
