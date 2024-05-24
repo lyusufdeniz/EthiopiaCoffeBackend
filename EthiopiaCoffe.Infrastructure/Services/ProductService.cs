@@ -28,7 +28,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> DeleteAsync(ProductDTO entity)
         {
-            if (_productRepository.GetByIdAsync(entity.Id) is null)
+            if (await _productRepository.GetByIdAsync(entity.Id) is null)
             {
               return  ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
             }
@@ -40,7 +40,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> DeleteAsync(Guid id)
         {
-            var entity = _productRepository.GetByIdAsync(id);
+            var entity = await _productRepository.GetByIdAsync(id);
             if (entity is null)
             {
               return  ResponseDTO<NoContent>.Fail($"Product Not Found", HttpStatusCode.NotFound);
@@ -70,7 +70,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> UpdateAsync(ProductUpdateDTO entity)
         {
-            if (_productRepository.GetByIdAsync(entity.Id) is null)
+            if (await _productRepository.GetByIdAsync(entity.Id) is null)
             {
               return  ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }

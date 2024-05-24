@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EthiopiaCoffe.Domain.Concrete.Entities;
+using EthiopiaCoffe.Persistence.Repositories;
 using EthiopiaCoffe.Repository.DTOs;
 using EthiopiaCoffe.Repository.DTOs.Category;
 using EthiopiaCoffe.Repository.Repositories;
@@ -43,7 +44,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> DeleteAsync(CategoryDTO entity)
         {
-            if (_categoryRepository.GetByIdAsync(entity.Id) is null)
+            if (await _categoryRepository.GetByIdAsync(entity.Id) is null)
             {
               return ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
             }
@@ -55,7 +56,7 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> DeleteAsync(Guid id)
         {
-            var entity = _categoryRepository.GetByIdAsync(id);
+            var entity = await _categoryRepository.GetByIdAsync(id);
             if (entity is null)
             {
              return   ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
@@ -69,6 +70,10 @@ namespace EthiopiaCoffe.Infrastructure.Services
 
         public async Task<ResponseDTO<NoContent>> UpdateAsync(CategoryUpdateDTO entity)
         {
+            if (await _categoryRepository.GetByIdAsync(entity.Id) is null)
+            {
+                return ResponseDTO<NoContent>.Fail($"Category Not Found", HttpStatusCode.NotFound);
+            }
             var mapped = _mapper.Map<Category>(entity);
             await _categoryRepository.Update(mapped);
             await _unitOfWork.CommitAsync();
