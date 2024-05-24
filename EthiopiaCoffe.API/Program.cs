@@ -1,5 +1,5 @@
 using EthiopiaCoffe.API.Extensions;
-using EthiopiaCoffe.API.Filters;
+using EthiopiaCoffe.API.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,19 +13,12 @@ builder.Services.Configure<ApiBehaviorOptions>(x => { x.SuppressModelStateInvali
 builder.Services.InjectEFCoreForSqlServer(builder.Configuration);
 builder.Services.InjectRepositories();
 builder.Services.InjectServices();
-
-
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
+app.InjectMiddlewares();
+
 app.Run();
